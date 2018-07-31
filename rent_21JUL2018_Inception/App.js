@@ -1,91 +1,63 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Button } from 'react-native';
-import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
+import { createStackNavigator, createMaterialTopTabNavigator, navigationOptions, tabBarIcon, activeTintColor, TabNavigator } from 'react-navigation';
+import {Navigation, Screen, startTabBasedApp} from 'react-native-navigation';
 import {Icon} from 'react-native-elements';
+import MainNavigatorImpl from './Navigation/NavigationImpl';
+import HomeScreen from "./Navigation/all_screens/HomeScreen";
 
+/*function registerScreens() {
+  Navigation.registerComponent('Rent_21JUL2018_INCEPTION.all_screens.Start', () => StartScreen);
+}*/
 
-class TakeTextInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {text:''};
-  }
+/*const App = () => (
+  <View>
+    <TestNav/>
+  </View>
+)*/
+
+class App extends Component {
   render() {
-    return (
-      <View style={{padding: 10}}>
-        <TextInput
-          placeholder="What's your username?"
-          onChangeText={(text) => this.setState({text})}/>
-      </View>
-    )
-  }
-
-}
-
-class HomeScreen extends Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-        <Button
-          title="Go to Profile"
-          onPress={() => this.props.navigation.push('Profile')}
-        />
-      </View>
-    );
+  return <MainNavigatorImpl/>   
   }
 }
 
-class ProfileScreen extends Component {
-  render() {
-    return ( 
-    <View>
-      <Text>Profile Screen</Text>
-      <TakeTextInput/> 
-    </View>);
-  }
-}
+/*const tabs = [{
+  label: 'Navigation',
+  screen: 'example.Types.ListScreen',
+  title: 'Navigation Types',
+}];*/
 
-class HotPicksScreen extends Component{
-  render(){
-    return(
-    <View>
-      <Text>HotPicks</Text>
-    </View>
-    );
+const TestNav = createMaterialTopTabNavigator(
+  {
+    Home:
+    {
+      screen: HomeScreen,
+    }
+  },
+  {
+    initialRouteName: "Home"
   }
-}
+)
 
-class FindHomeScreen extends Component{
-  render(){
-    return(
-      <View>
-        <Text>Find Home!</Text>
-      </View>
-    );
-  }
-}
+export default App;
 
-class JustForYouScreen extends Component{
-  render(){
-    return(
-      <View>
-        <Text>JustForYou</Text>
-      </View>
-    );
-  }
-}
 
-class SettingsScreen extends Component{
-  render(){
-    return(
-      <View>
-        <Text>Settings</Text>
-      </View>
-    );
-  }
-}
 
-export const Tabs = createMaterialTopTabNavigator(
+/*Navigation.startTabBasedApp({
+  tabs: 
+  [
+    {
+      label: 'Start',
+      screen: 'StartScreen',
+      title: 'Home title',
+    }
+  ],
+   passProps: {}, // simple serializable object that will pass as props to all top screens (optional)
+  animationType: 'slide-down', // optional, add transition animation to root change: 'none',
+})*/
+
+/*export const Tabs = createMaterialTopTabNavigator(
   {
     Home:
     {
@@ -99,6 +71,10 @@ export const Tabs = createMaterialTopTabNavigator(
     {
       screen: SettingsScreen,
     },
+    Start:
+    {
+      screen: StartScreen,
+    }*/
    /* HotPicks:
     {
       screen: HotPicksScreen,
@@ -111,16 +87,12 @@ export const Tabs = createMaterialTopTabNavigator(
     {
       screen: JustForYouScreen,
     },*/
-  },
+  //},
+  /*
     {
-    initialRouteName: 'Home',
-    },
-  );
+    initialRouteName: 'Start',
+    },*/
+  //);
 
-export default class App extends React.Component {
-  render() {
-    return <Tabs />;
-  }
-}
 
 
