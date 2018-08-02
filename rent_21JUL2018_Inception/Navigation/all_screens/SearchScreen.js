@@ -3,7 +3,9 @@ import { AppRegistry, StyleSheet, Text, TextInput, View, Button } from 'react-na
 import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-export default class HomeScreen extends React.Component {
+
+//search screen shouldnt be an actual screen
+export default class SearchScreen extends React.Component {
     render() {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { createStackNavigator, createMaterialTopTabNavigator, NavigationNavigateAction } from 'react-navigation';
 import { Icon, Header } from 'react-native-elements';
-import HomeScreen from './HomeScreen';
+import SearchScreen from './SearchScreen';
 
 class TakeTextInput extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ export default class StartScreen extends React.Component {
           rightComponent = {{ icon: 'home', color: '#5b5b5b' }}
           
         />
-        <Button title="go home" onPress={() => NavigationNavigateAction(HomeScreen)}/>
+        <Button title="go home" onPress={() => NavigationNavigateAction(StartScreen)}/>
          </View>
     )
   }}
@@ -48,7 +48,7 @@ export default class StartScreen extends React.Component {
           <Text style={PageStyles.title}> Let's get you started! </Text>
             <TakeTextInput placeholderText="What's your username?" />
             <TakeTextInput placeholderText="What's your password?" />
-        </View>*/ 
+        </View>*/
 
 PageStyles = StyleSheet.create({
   title: {
