@@ -1,79 +1,70 @@
 import React from "react";
 import { View } from "react-native";
 import { TabNavigator, TabBarBottom, createStackNavigator, tabBarBottom, createMaterialTopTabNavigator } from "react-navigation";
-import HomeScreen from "./all_screens/HomeScreen";
-import ProfileScreen from "./all_screens/ProfileScreen";
-import SettingsScreen from "./all_screens/SettingsScreen";
-
-const HomeTab = createStackNavigator(
-    {
-        Home: {
-            screen: HomeScreen,
-            navigationOptions: {
-
-            }
-        }
-    },
-    {
-        navigationOptions: {
-
-        }
-    }
-)
+import FindHomeScreen from "./all_screens/FindHomeScreen";
+import JustForYouScreen from "./all_screens/JustForYouScreen";
+import HotPicksScreen from "./all_screens/HotPicksScreen";
 
 
-// const RootStack = createStackNavigator(
-//     {
-//       Home: HomeScreen,
-//       Details: DetailsScreen,
-//     },
-//     {
-//       initialRouteName: 'Home',
-//     }
-//   );
-
-
-
-const ProfileTab = createStackNavigator(
-    {
-        Profile: {
-            screen: ProfileScreen,
-            navigationsOptions:{
-
-            }
-        }
-    },
-    {
-        navigationOptions:{
-
-        }
-    }
-)
-
-const SettingsTab = createStackNavigator(
+const FindHomeTab = createStackNavigator(
     {
         Settings: {
-            screen: SettingsScreen,
+            screen: FindHomeScreen,
             navigationOptions:{
 
             }
         }
     },
     {
-        navigationOptions: {
+        navigationOptions:
+        {
 
         }
     }
 )
 
-const PermanentTabs = createMaterialTopTabNavigator(
+const JustForYou = createStackNavigator(
     {
-        Home: HomeScreen,
-        Settings: SettingsScreen,
-        Profile: ProfileScreen,
+        Settings: {
+            screen: JustForYouScreen,
+            navigationOptions:{
+
+            }
+        },
     },
     {
-        initialRouteName: "Settings",
+        navigationOptions:
+        {
+
+        }
+    }
+)
+
+const HotPicksTab = createStackNavigator(
+    {
+        Settings: {
+            screen: HotPicksScreen,
+            navigationOptions:{
+
+            }
+        },
+    },
+    {
+        navigationOptions:
+        {
+
+        }
+    }
+) 
+
+const SearchTabs = createMaterialTopTabNavigator(
+    {
+        "Find Home": FindHomeScreen,
+        "Just For You": JustForYouScreen,
+        "Hot Picks": HotPicksScreen
+    },
+    {
+        initialRouteName: "Find Home", //this will be the last search screen you were on
         navigationOptions: ({ navigation }) => {
             const { routeName, routes } = navigation.state;
             let params = routes && routes [1] && routes[1].params;
@@ -81,21 +72,20 @@ const PermanentTabs = createMaterialTopTabNavigator(
                 tabBarIcon: ({foused, tintColor}) => {
                     const { routeName } = navigation.state;
                     let iconName;
-                   /* switch(routeName)
+                    switch(routeName)
                     {
-                        case "Home":
+                        case "FindHome":
                         iconName = `ios-people${focused ? '' : '-outline'}`;break;
-                        case "Settings":
+                        case "JustForYou":
                         iconName = `ios-people${focused ? '' : '-outline'}`;break;
-                        case "Profile":
+                        case "HotPicks":
                         iconName = `ios-megaphone${focused ? '' : '-outline'}`;break;
-                    }*/
+                    }
                     return <Ionicons name={iconName} size={25} color={tintColor} />;
-   
                 }
             }
         }
     }
 )
 
-export default PermanentTabs;
+export default SearchTabs;

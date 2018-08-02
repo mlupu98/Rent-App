@@ -2,22 +2,23 @@ import React from "react";
 import { View } from "react-native";
 import { createStackNavigator } from "react-navigation";
 import StartScreen from "./all_screens/StartScreen";
-import MainNavigator from "./Routes";
-
+import PermanentTabs from "./PermanentRoutes";
+import SearchTabs from "./SearchRoutes";
 
 const MainNavigatorImpl = createStackNavigator(
     {
-        Start:{
-            screen: StartScreen,
+        StartTabs:{
+            screen: SearchTabs,
             navigationOptions:{
-                headerTitle: "Home",
+                headerTitle: "Search",
+
 
             }
         },
         PermanentTabs:{
-            screen: MainNavigator,
+            screen: PermanentTabs,
             navigationOptions:{
-
+                headerTitle: "Home", //if null then header is gone
             }
         }
     },
