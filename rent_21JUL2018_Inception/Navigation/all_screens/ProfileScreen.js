@@ -5,7 +5,8 @@ import {
   Text,
   TextInput,
   View,
-  Button
+  Button,
+  KeyBoard
 } from "react-native";
 import {
   createStackNavigator,
@@ -17,34 +18,49 @@ class TakeTextInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: "",
+      value: "",
       placeholderText: "",
       isFilled: false,
-      textInputValue: "default"
-      
+      textInputValue: "default",
+      ref: "",
+      buttonFill: 0,
+      text: "",
     };
-    this.handleChangeText = this.handleChangeText.bind(this);
+    this.handleOnChangeText = this.handleOnChangeText.bind(this);
+    this.changeContainerColor = this.changeContainerColor.bind(this);
   }
-
-  handleChangeText(text) {
-    let newTextInputValue = "***" + text;
+  handleOnChangeText = (text) => {
     this.setState({
-      textInputValue: newTextInputValue
+      value: text 
     });
+    if (text != "") {
+      this.setState({
+        buttonFill: 1
+      })
+    }
+    else {
+      this.setState({
+        buttonFill: 0
+      })
+    };
+    this.changeContainerColor(this.buttonFill);
+    // You need to change the style here. You only call the style component once. Once a change happens, you need to rerender the component.
+  }
+  
+  changeContainerColor(val) {
+    if (val == 1) {
+      return (PageStyles.lightBlueFill)
+    }
+    else {
+      return (PageStyles.lightOrangeFill)
+    }; 
   }
 
   render() {
     return (
-      <View style={PageStyles.lightBlueFill}>
-        <TextInput placeholder={this.props.placeholderText} />
-        console.log("this.state.textInputValue", this.state.textInputValue);
-        return (
-        <View>
-          <TextInput
-            onChangeText={this.handleChangeText}
-            value={this.state.textInputValue}
-          />
-        </View>
+      <View style={this.changeContainerColor(this.state.buttonFill)}>
+        <TextInput placeholder={this.props.placeholderText}
+        onChangeText={this.handleOnChangeText} />
       </View>
     );
   }
@@ -63,7 +79,7 @@ export default class ProfileScreen extends React.Component {
         />
         <View style={PageStyles.mainComponent}>
           <Text style={PageStyles.title}> Let's get you started! </Text>
-          <TakeTextInput placeholderText="What's your number?" />
+          <TakeTextInput ref="username" placeholderText="What's your number?" />
         </View>
       </View>
     );
