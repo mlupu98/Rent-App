@@ -20,45 +20,32 @@ class TakeTextInput extends Component {
     this.state = {
       value: "",
       placeholderText: "",
-      isFilled: false,
-      textInputValue: "default",
-      ref: "",
-      buttonFill: 0,
-      text: "",
+      buttonFill: false,
     };
+    // Have to bind functions inside Components.
     this.handleOnChangeText = this.handleOnChangeText.bind(this);
     this.changeContainerColor = this.changeContainerColor.bind(this);
   }
   handleOnChangeText = (text) => {
-    this.setState({
-      value: text 
-    });
-    if (text != "") {
-      this.setState({
-        buttonFill: 1
-      })
-    }
-    else {
-      this.setState({
-        buttonFill: 0
-      })
-    };
+    // Store updated text into value. You will not see this change until all the states are set.
+    this.setState({ value: text });
+    // Evaluate if text is empty. If not empty, fill box blue. 
+    if (text != "")
+      this.setState({ buttonFill: true }); 
+    else 
+      this.setState({ buttonFill: false });
+    // Update button fill.
     this.changeContainerColor(this.buttonFill);
-    // You need to change the style here. You only call the style component once. Once a change happens, you need to rerender the component.
   }
-  
-  changeContainerColor(val) {
-    if (val == 1) {
-      return (PageStyles.lightBlueFill)
-    }
-    else {
-      return (PageStyles.lightOrangeFill)
-    }; 
+  changeContainerColor = (val) => {
+    if (val == 1) 
+      return (PageStyles.lightBlueFill);
+    else 
+      return (PageStyles.lightOrangeFill);
   }
-
   render() {
     return (
-      <View style={this.changeContainerColor(this.state.buttonFill)}>
+      <View style={[PageStyles.textInputBubble, this.changeContainerColor(this.state.buttonFill)]}>
         <TextInput placeholder={this.props.placeholderText}
         onChangeText={this.handleOnChangeText} />
       </View>
@@ -104,16 +91,15 @@ PageStyles = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
     borderRadius: 10
   },
-  lightBlueFill: {
+  textInputBubble: {
     margin: 10,
     padding: 15,
-    backgroundColor: "#ADEBFF",
     borderRadius: 50
   },
+  lightBlueFill: {
+    backgroundColor: "#ADEBFF",
+  },
   lightOrangeFill: {
-    margin: 10,
-    padding: 15,
     backgroundColor: "#FFB48A",
-    borderRadius: 50
   }
 });
